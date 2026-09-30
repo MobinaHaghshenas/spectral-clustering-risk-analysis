@@ -17,7 +17,7 @@ The overall methodology consists of:
 
 The complete workflow is illustrated below.
 
-![Methodology Flowchart](figures/methodology-flowchart.png)
+![Methodology Flowchart](methodology-flowchart.png)
 
 ## Cluster Number Selection
 
@@ -25,7 +25,7 @@ Two complementary approaches were used to determine the appropriate number of cl
 
 ### Elbow Method
 
-![Elbow Method](figures/elbow-method.png)
+![Elbow Method](elbow-method.png)
 
 The Elbow Method examines the change in within-cluster distortion as the number of clusters increases.
 
@@ -33,7 +33,7 @@ The analysis supports selecting four clusters.
 
 ### Gap Statistic
 
-![Gap Statistic](figures/gap-statistic.png)
+![Gap Statistic](gap-statistic.png)
 
 The Gap Statistic provides an additional criterion for determining the appropriate number of clusters.
 
@@ -43,13 +43,13 @@ The maximum Gap Statistic occurs at four clusters.
 
 ### Cluster Characteristics
 
-![Cluster Scores](figures/cluster-scores.png)
+![Cluster Scores](cluster-scores.png)
 
 This visualization compares the mean values of the main risk dimensions across the four identified clusters.
 
 ### Cluster Distribution
 
-![Cluster Distribution](figures/cluster-distribution-pairplot.png)
+![Cluster Distribution](cluster-distribution-pairplot.png)
 
 The pairplot visualizes relationships among the risk dimensions while distinguishing observations assigned to the four clusters.
 
