@@ -4,19 +4,19 @@
 
 ## Overview
 
-Risk management in new product development involves multiple risks with different characteristics and potential impacts.
+Risk management in New Product Development (NPD) involves multiple risks with different characteristics and potential impacts on project objectives.
 
 This project applies an unsupervised machine learning approach to identify groups of similar risks and support data-driven risk categorization.
 
-The analysis combines statistical assessment, cluster-number selection methods, and Spectral Clustering to identify meaningful risk groups.
+The analysis combines clustering tendency assessment, cluster-number selection, Spectral Clustering, and internal cluster validation to identify and interpret meaningful risk groups.
 
 ---
 
 ## Problem
 
-A set of risks associated with new product development needs to be categorized into meaningful groups.
+A set of risks associated with New Product Development needs to be categorized into meaningful groups.
 
-Instead of assigning predefined labels, this project investigates whether the underlying structure of the data can be used to discover natural groups of similar risks.
+The risks are unlabeled observations, so the analysis investigates whether the underlying structure of the quantitative risk data can be used to identify groups of similar risks.
 
 The main question is:
 
@@ -24,21 +24,29 @@ The main question is:
 
 ---
 
-## Objective
+## Case Study & Dataset
 
-The objectives of this project are to:
+The case study focuses on risks associated with New Product Development in the agriculture industry.
 
-* Evaluate whether the dataset contains a meaningful clustering structure.
-* Determine an appropriate number of clusters.
-* Apply Spectral Clustering to categorize the risks.
-* Evaluate the resulting clusters.
-* Interpret the identified risk groups in the context of new product development.
+The risks were identified through a combination of literature review and input from experts within the organization. Additional risks were identified through brainstorming sessions with seven organizational experts.
 
----
+Due to confidentiality considerations, detailed descriptions of individual risks are not disclosed. Instead, the case study provides the overall risk breakdown structure and assigns numerical codes to the risks used in the analysis.
 
-## Dataset
+### NPD Risk Structure
 
-The dataset contains **39 risk observations** and the main variables used in the clustering analysis are:
+The case study organizes NPD risks into five main categories:
+
+* Production Risks
+* Financial Risks
+* Organizational Risks
+* Technical Risks
+* Marketing Risks
+
+![NPD Risk Structure](data/npd-risk-structure.png)
+
+The dataset contains **39 coded risk observations**.
+
+The quantitative data used in the clustering analysis contains the following main variables:
 
 * `Code`
 * `P`
@@ -46,13 +54,19 @@ The dataset contains **39 risk observations** and the main variables used in the
 * `F`
 * `C`
 
-The dataset is provided in:
+The complete dataset and additional case-study context are available in the [`data/`](data/) directory.
 
-```text
-data/Data.xlsx
-```
+---
 
-The dataset used in this repository does not identify the specific factory by name and is included for reproducibility of the analysis.
+## Objective
+
+The objectives of this project are to:
+
+* Assess whether the dataset exhibits a meaningful clustering structure.
+* Determine an appropriate number of clusters.
+* Apply Spectral Clustering to categorize the risks.
+* Validate the resulting clusters using internal evaluation measures.
+* Interpret the resulting risk groups in the context of New Product Development.
 
 ---
 
@@ -60,10 +74,14 @@ The dataset used in this repository does not identify the specific factory by na
 
 The complete analytical workflow is:
 
+![Methodology Flowchart](results/methodology-flowchart.png)
+
+The workflow consists of the following stages:
+
 ```text
 Risk Data
     ↓
-Data Preparation
+Data Gathering & Transformation
     ↓
 Hopkins Test
     ↓
@@ -73,38 +91,51 @@ Elbow Method + Gap Statistic
     ↓
 Spectral Clustering
     ↓
-Cluster Evaluation
+Model Validation
     ↓
-Risk Interpretation
+Risk Categorization & Interpretation
 ```
 
-### 1. Hopkins Test
+### 1. Data Preparation
+
+The coded risk observations are transformed into the quantitative feature representation used for clustering.
+
+The main dimensions used in the analysis are:
+
+* `P`
+* `R`
+* `F`
+* `C`
+
+### 2. Hopkins Test
 
 The Hopkins statistic is used to assess whether the observations exhibit a tendency toward clustering.
 
-The analysis produced a mean Hopkins statistic of approximately **0.747** across repeated calculations, indicating a clustering tendency in the dataset.
+The dataset initially passed the Hopkins test with a value of approximately **0.747**.
 
-### 2. Elbow Method
+### 3. Determining the Number of Clusters
 
-The Elbow Method is used to examine how within-cluster variation changes as the number of clusters increases.
+Two complementary methods are used:
 
-The resulting analysis supports considering **four clusters** for the final clustering stage.
+* Elbow Method
+* Gap Statistic
 
-### 3. Gap Statistic
-
-The Gap Statistic provides an additional criterion for determining the appropriate number of clusters.
-
-The maximum Gap Statistic in the analysis occurs at **four clusters**.
+Both methods support using **four clusters** for the subsequent clustering analysis.
 
 ### 4. Spectral Clustering
 
-Spectral Clustering is then applied using four clusters.
+Spectral Clustering is applied to the unlabeled risk data.
 
-The implementation uses the risk-related feature dimensions to identify groups of observations with similar characteristics.
+The study selects Spectral Clustering because the problem involves unlabeled observations and multiple risk-related features, with the objective of categorizing risks according to their impact characteristics.
 
-### 5. Cluster Evaluation
+### 5. Cluster Validation
 
-The resulting clusters are evaluated using clustering validation measures and by examining the characteristics of the observations assigned to each group.
+The resulting clusters are evaluated using internal validation measures because the risk observations do not have predefined reference labels.
+
+The analysis uses:
+
+* Davies-Bouldin Index
+* Silhouette Coefficient
 
 ---
 
@@ -112,32 +143,86 @@ The resulting clusters are evaluated using clustering validation measures and by
 
 The final analysis identifies **four risk clusters**.
 
-The clusters can be interpreted in relation to different areas of the new product development environment, including:
+The resulting groups are interpreted in relation to:
 
-* Process and new product development
+* Processes and new product development
 * Incremental growth
-* Management across the value chain
-* Market and environmental factors
+* Product value-chain management
+* Market and environment
 
-The resulting groups provide a data-driven categorization of the risks rather than relying only on manually predefined categories.
+### Elbow Method
 
-### Visual Results
+![Elbow Method](results/elbow-method.png)
 
-#### Elbow Method
+The Elbow Method examines the change in within-cluster distortion as the number of clusters increases.
 
-![Elbow Method](results/figures/elbow-method.png)
+### Gap Statistic
 
-#### Gap Statistic
+![Gap Statistic](results/gap-statistic.png)
 
-![Gap Statistic](results/figures/gap-statistic.png)
+The Gap Statistic provides an additional criterion for determining the appropriate number of clusters.
 
-#### Spectral Clustering
+The maximum Gap Statistic occurs at **four clusters**.
 
-![Spectral Clusters](results/figures/spectral-clusters.png)
+### Cluster Characteristics
 
-#### Cluster Characteristics
+![Cluster Scores](results/cluster-scores.png)
 
-![Cluster Scores](results/figures/cluster-scores.png)
+This visualization compares the mean values of the main risk dimensions across the four identified clusters.
+
+### Cluster Distribution
+
+![Cluster Distribution](results/cluster-distribution-pairplot.png)
+
+The pairplot visualizes relationships among the risk dimensions while distinguishing observations assigned to the four clusters.
+
+---
+
+## Key Findings
+
+The clustering analysis produces four groups of risks with different characteristics.
+
+The resulting categories provide a data-driven view of the risk structure and demonstrate how unsupervised learning can support risk categorization in a practical New Product Development setting.
+
+The approach combines:
+
+**case-study context → quantitative risk data → clustering assessment → model selection → unsupervised learning → validation → interpretation**
+
+---
+
+## Project Structure
+
+```text
+spectral-clustering-risk-analysis/
+│
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── src/
+│   ├── 01_hopkins_test.py
+│   ├── 02_elbow_method.py
+│   ├── 03_gap_statistic.py
+│   └── 04_spectral_clustering.py
+│
+├── data/
+│   ├── README.md
+│   ├── Data.xlsx
+│   └── figures/
+│       └── npd-risk-structure.png
+│
+├── results/
+│   ├── README.md
+│   └── figures/
+│       ├── methodology-flowchart.png
+│       ├── elbow-method.png
+│       ├── gap-statistic.png
+│       ├── cluster-scores.png
+│       └── cluster-distribution-pairplot.png
+│
+└── paper/
+    └── README.md
+```
 
 ---
 
@@ -166,17 +251,20 @@ data/Data.xlsx
 
 ---
 
+## Reference
+
+Haghshenas, M., & Ashrafi, M. (2023).
+
+**Spectral Clustering for Effective Risk Categorization in New Product Development: A Case Study.**
+
+The 19th Iranian International Industrial Engineering Conference (IIIEC 2023), Amirkabir University of Technology, Tehran, Iran.
+
+---
+
 ## Key Takeaway
 
 This project demonstrates an end-to-end unsupervised learning workflow for a real-world risk categorization problem:
 
-**data → clustering validation → model selection → unsupervised learning → evaluation → business interpretation**
+**Data → Clustering Assessment → Model Selection → Spectral Clustering → Validation → Risk Interpretation**
 
-The project combines machine learning methodology with a practical decision-support problem in new product development.
-
----
-
-## Reference
-
-**Haghshenas, M., & Ashrafi, M. (2023). "Spectral clustering for effective risk categorization in new product development: a case study", The 19th Iranian International Industrial Engineering Conference (IIIEC 2023), Amirkabir University of Technology, Tehran, Iran.**
-
+The project combines machine learning methodology with a practical decision-support problem in New Product Development.
