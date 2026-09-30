@@ -76,26 +76,6 @@ The complete analytical workflow is:
 
 ![Methodology Flowchart](results/methodology-flowchart.png)
 
-The workflow consists of the following stages:
-
-```text
-Risk Data
-    ↓
-Data Gathering & Transformation
-    ↓
-Hopkins Test
-    ↓
-Determine Number of Clusters
-    ↓
-Elbow Method + Gap Statistic
-    ↓
-Spectral Clustering
-    ↓
-Model Validation
-    ↓
-Risk Categorization & Interpretation
-```
-
 ### 1. Data Preparation
 
 The coded risk observations are transformed into the quantitative feature representation used for clustering.
@@ -187,42 +167,6 @@ The resulting categories provide a data-driven view of the risk structure and de
 The approach combines:
 
 **case-study context → quantitative risk data → clustering assessment → model selection → unsupervised learning → validation → interpretation**
-
----
-
-## Project Structure
-
-```text
-spectral-clustering-risk-analysis/
-│
-├── README.md
-├── requirements.txt
-├── .gitignore
-│
-├── src/
-│   ├── 01_hopkins_test.py
-│   ├── 02_elbow_method.py
-│   ├── 03_gap_statistic.py
-│   └── 04_spectral_clustering.py
-│
-├── data/
-│   ├── README.md
-│   ├── Data.xlsx
-│   └── figures/
-│       └── npd-risk-structure.png
-│
-├── results/
-│   ├── README.md
-│   └── figures/
-│       ├── methodology-flowchart.png
-│       ├── elbow-method.png
-│       ├── gap-statistic.png
-│       ├── cluster-scores.png
-│       └── cluster-distribution-pairplot.png
-│
-└── paper/
-    └── README.md
-```
 
 ---
 
