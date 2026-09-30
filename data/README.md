@@ -22,7 +22,7 @@ The risk structure considered in the case study is organized into five main cate
 
 The following diagram illustrates the risk breakdown structure of the New Product Development case study.
 
-![NPD Risk Structure](figures/npd-risk-structure.png)
+![NPD Risk Structure](npd-risk-structure.png)
 
 The structure includes more specific risk areas such as production-related challenges, financial factors, organizational issues, technical risks, and marketing-related factors.
 
